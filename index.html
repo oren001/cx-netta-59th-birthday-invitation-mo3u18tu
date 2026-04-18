@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netta's 59th Birthday Celebration!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #FF6B9D 0%, #C44569 25%, #FFA07A 50%, #FFD700 75%, #DA70D6 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        #confetti-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+        }
+
+        #hero-section {
+            width: 100%;
+            max-width: 1200px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .celebration-title {
+            font-size: 4rem;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+            margin-bottom: 1rem;
+            animation: floatingAnimation 3s ease-in-out infinite;
+        }
+
+        @keyframes floatingAnimation {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .floating-animation {
+            animation: floatingAnimation 3s ease-in-out infinite;
+        }
+
+        .subtitle {
+            font-size: 2rem;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            margin-bottom: 3rem;
+            font-style: italic;
+        }
+
+        #photo-container {
+            margin: 3rem auto;
+            display: inline-block;
+        }
+
+        .photo-frame {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 8px solid #FFD700;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3), 
+                        0 0 0 15px rgba(255, 255, 255, 0.2),
+                        0 0 60px rgba(255, 215, 0, 0.6);
+            animation: floatingAnimation 4s ease-in-out infinite;
+            animation-delay: 0.5s;
+        }
+
+        #netta-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .details-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 3rem;
+            margin: 3rem auto;
+            max-width: 600px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        #party-details h2 {
+            font-size: 2.5rem;
+            color: #C44569;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .date-time {
+            font-size: 1.8rem;
+            color: #333;
+            margin: 1.5rem 0;
+            font-weight: bold;
+            text-align: center;
+            padding: 1rem;
+            background: linear-gradient(135deg, #FFE5EC 0%, #FFF4E6 100%);
+            border-radius: 15px;
+        }
+
+        #location-info {
+            margin: 2rem 0;
+        }
+
+        .location-text {
+            font-size: 1.5rem;
+            color: #555;
+            line-height: 1.8;
+            text-align: center;
+            margin: 1rem 0;
+        }
+
+        .location-text strong {
+            color: #C44569;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .byo-note {
+            font-size: 1.2rem;
+            color: #777;
+            font-style: italic;
+            text-align: center;
+            margin: 2rem 0;
+            padding: 1rem;
+            background: #FFF9E6;
+            border-radius: 10px;
+            border-left: 4px solid #FFD700;
+        }
+
+        .btn-rsvp {
+            display: block;
+            margin: 2rem auto 0;
+            padding: 1.5rem 4rem;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #fff;
+            background: linear-gradient(135deg, #FF6B9D 0%, #C44569 100%);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(196, 69, 105, 0.4);
+            transition: all 0.3s ease;
+            font-family: 'Georgia', 'Times New Roman', serif;
+        }
+
+        .btn-rsvp:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(196, 69, 105, 0.6);
+        }
+
+        .btn-rsvp:active {
+            transform: translateY(-2px) scale(1.02);
+        }
+
+        .confetti-particle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            pointer-events: none;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #fff;
+            font-size: 1.2rem;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .celebration-title {
+                font-size: 2.5rem;
+            }
+
+            .subtitle {
+                font-size: 1.5rem;
+            }
+
+            .photo-frame {
+                width: 250px;
+                height: 250px;
+            }
+
+            .details-card {
+                padding: 2rem;
+                margin: 2rem 1rem;
+            }
+
+            #party-details h2 {
+                font-size: 2rem;
+            }
+
+            .date-time {
+                font-size: 1.4rem;
+            }
+
+            .location-text {
+                font-size: 1.2rem;
+            }
+
+            .btn-rsvp {
+                padding: 1.2rem 3rem;
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .celebration-title {
+                font-size: 2rem;
+            }
+
+            .subtitle {
+                font-size: 1.2rem;
+            }
+
+            .photo-frame {
+                width: 200px;
+                height: 200px;
+            }
+
+            .details-card {
+                padding: 1.5rem;
+            }
+
+            .date-time {
+                font-size: 1.2rem;
+            }
+
+            .location-text {
+                font-size: 1rem;
+            }
+
+            .byo-note {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body class="gradient-bg">
+    <canvas id="confetti-canvas"></canvas>
+    
+    <div class="hero">
+        <div id="hero-section">
+            <h1 class="celebration-title">🎉 Netta's 59th Birthday Bash! 🎉</h1>
+            <p class="subtitle">Join us for an unforgettable celebration!</p>
+            
+            <div id="photo-container">
+                <div class="photo-frame">
+                    <img id="netta-photo" src="https://i.imgur.com/YOQwH8L.jpeg" alt="Netta" loading="eager">
+                </div>
+            </div>
+
+            <div class="details-card" id="party-details">
+                <h2>You're Invited!</h2>
+                
+                <div class="date-time">
+                    📅 Saturday, May 2nd<br>
+                    🕖 7:00 PM
+                </div>
+
+                <div id="location-info">
+                    <p class="location-text">
+                        <strong>📍 Location:</strong>
+                        Monaco Residence<br>
+                        350 Bronte Rd, Waverley
+                    </p>
+                </div>
+
+                <div class="byo-note">
+                    🍽️ Please BYO food & drinks 🥂
+                </div>
+
+                <button id="rsvp-button" class="btn-rsvp">
+                    RSVP Now! 💌
+                </button>
+            </div>
+        </div>
+
+        <footer>
+            <p>Can't wait to celebrate with you! 🎊</p>
+        </footer>
+    </div>
+
+    <script>
+        const PARTY_DATE = 'Saturday, May 2nd';
+        const PARTY_TIME = '7:00 PM';
+        const LOCATION = 'Monaco Residence, 350 Bronte Rd Waverley';
+        const BIRTHDAY_AGE = 59;
+        const COLOR_SCHEME = ['#FF6B9D', '#C44569', '#FFA07A', '#FFD700', '#DA70D6'];
+
+        const canvas = document.getElementById('confetti-canvas');
+        const ctx = canvas.getContext('2d');
+        let confettiParticles = [];
+        let animationId;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class ConfettiParticle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.size = Math.random() * 8 + 4;
+                this.speedY = Math.random() * 3 + 2;
+                this.speedX = Math.random() * 4 - 2;
+                this.color = COLOR_SCHEME[Math.floor(Math.random() * COLOR_SCHEME.length)];
+                this.rotation = Math.random() * 360;
+                this.rotationSpeed = Math.random() * 10 - 5;
+                this.opacity = 1;
+            }
+
+            update() {
+                this.y += this.speedY;
+                this.x += this.speedX;
+                this.rotation += this.rotationSpeed;
+                
+                if (this.y > canvas.height) {
+                    this.y = -10;
+                    this.x = Math.random() * canvas.width;
+                    this.opacity = 1;
+                } else {
+                    this.opacity = Math.max(0, 1 - (this.y / canvas.height) * 0.5);
+                }
+            }
+
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate((this.rotation * Math.PI) / 180);
+                ctx.globalAlpha = this.opacity;
+                ctx.fillStyle = this.color;
+                ctx.fillRect(-this.size / 2, -this.size / 2, this.size, this.size);
+                ctx.restore();
+            }
+        }
+
+        function createConfetti(count = 100) {
+            confettiParticles = [];
+            for (let i = 0; i < count; i++) {
+                const x = Math.random() * canvas.width;
+                const y = Math.random() * canvas.height - canvas.height;
+                confettiParticles.push(new ConfettiParticle(x, y));
+            }
+        }
+
+        function animateConfetti() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            confettiParticles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+
+            animationId = requestAnimationFrame(animateConfetti);
+        }
+
+        function handleRSVP() {
+            const button = document.getElementById('rsvp-button');
+            const originalText = button.textContent;
+            
+            button.textContent = '🎉 Thank you! See you there! 🎉';
+            button.style.background = 'linear-gradient(135deg, #4CAF50 0%, #45a049 100%)';
+            
+            createConfetti(150);
+            
+            setTimeout(() => {
+                const email = 'netta59thbirthday@example.com';
+                const subject = encodeURIComponent(`RSVP for Netta's 59th Birthday - ${PARTY_DATE}`);
+                const body = encodeURIComponent(`Hi!\n\nI would love to attend Netta's 59th birthday celebration!\n\nDate: ${PARTY_DATE}\nTime: ${PARTY_TIME}\nLocation: ${LOCATION}\n\nSee you there!\n\nBest regards`);
+                
+                window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.background = 'linear-gradient(135deg, #FF6B9D 0%, #C44569 100%)';
+                }, 3000);
+            }, 1000);
+        }
+
+        function initPartyEffects() {
+            createConfetti(80);
+            animateConfetti();
+            
+            const rsvpButton = document.getElementById('rsvp-button');
+            rsvpButton.addEventListener('click', handleRSVP);
+            
+            setInterval(() => {
+                const randomParticles = Math.floor(Math.random() * 20) + 10;
+                for (let i = 0; i < randomParticles; i++) {
+                    const x = Math.random() * canvas.width;
+                    confettiParticles.push(new ConfettiParticle(x, -10));
+                }
+            }, 3000);
+        }
+
+        window.addEventListener('load', initPartyEffects);
+    </script>
+</body>
+</html>
